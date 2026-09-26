@@ -1,0 +1,12 @@
+{
+  "name": "realtime-bidding-platform",
+  "version": "1.0.0",
+  "description": "Full-stack real-time bidding platform with ML-based price prediction",
+  "scripts": {
+    "start": "./start_all.sh",
+    "seed": "node backend/seed.js",
+    "train": "./venv/bin/python3 ml_training/train_model.py",
+    "generate-data": "./venv/bin/python3 ml_training/generate_data.py",
+    "build:frontend": "cd frontend && npm run build"
+  }
+}
