@@ -13,7 +13,8 @@ import CreateAuctionModal from './components/CreateAuctionModal';
 import { formatCurrency } from './utils/formatters';
 
 const CATEGORIES = ['All', 'Electronics', 'Collectibles', 'Fine Art', 'Jewelry', 'Fashion', 'Home & Garden'];
-const SOCKET_URL = window.location.port === '3000' ? 'http://127.0.0.1:5002' : '/';
+const SOCKET_URL = import.meta.env.VITE_BACKEND_URL || '/';
+
 
 export default function App() {
   const [auctions, setAuctions] = useState([]);

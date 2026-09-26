@@ -1,0 +1,63 @@
+services:
+  # ──────────────────────────────────────────────
+  # 1. Python Flask ML Service (Free tier)
+  # ──────────────────────────────────────────────
+  - type: web
+    name: bidpulse-ml-service
+    env: python
+    plan: free
+    region: oregon
+    buildCommand: pip install -r ml_service/requirements.txt
+    startCommand: python ml_service/app.py
+    autoDeploy: true
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+
+  # ──────────────────────────────────────────────
+  # 2. Node.js Express + Socket.IO Backend (Free tier)
+  # ──────────────────────────────────────────────
+  - type: web
+    name: bidpulse-backend
+    env: node
+    plan: free
+    region: oregon
+    buildCommand: npm install
+    startCommand: node server.js
+    autoDeploy: true
+    rootDir: backend
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: 20.11.0
+      - key: PORT
+        value: 10000
+      - key: MONGODB_URI
+        sync: false          # Set this manually in the Render dashboard
+      - key: ML_SERVICE_URL
+        fromService:
+          name: bidpulse-ml-service
+          type: web
+          property: host
+
+  # ──────────────────────────────────────────────
+  # 3. React + Vite Frontend (Free Static Site)
+  # ──────────────────────────────────────────────
+  - type: web
+    name: bidpulse-frontend
+    env: node
+    plan: free
+    region: oregon
+    buildCommand: npm install && npm run build
+    startCommand: npx serve -s dist -l 10000
+    autoDeploy: true
+    rootDir: frontend
+    envVars:
+      - key: NODE_VERSION
+        value: 20.11.0
+      - key: VITE_BACKEND_URL
+        fromService:
+          name: bidpulse-backend
+          type: web
+          property: host
