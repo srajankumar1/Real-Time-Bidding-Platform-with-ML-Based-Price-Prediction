@@ -2,7 +2,17 @@
 
 A production-grade, full-stack real-time auction web application featuring live bidding via Socket.IO and instantaneous final price forecasting driven by a Scikit-Learn Machine Learning model served through a Python Flask microservice.
 
+## 🚀 Live Demo
+
+| Service | URL |
+| :--- | :--- |
+| **Frontend (React App)** | [https://bidpulse-frontend.onrender.com](https://bidpulse-frontend.onrender.com) |
+| **Backend API (Node.js + Socket.IO)** | [https://bidpulse-backend-yax4.onrender.com](https://bidpulse-backend-yax4.onrender.com) |
+
+> ⚠️ Hosted on Render's free tier — services may take **~30 seconds to wake up** after inactivity.
+
 ---
+
 
 ## Architecture Overview
 
